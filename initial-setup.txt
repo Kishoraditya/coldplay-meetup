@@ -1,47 +1,50 @@
-# 1. Cloudflare Setup
-# Create account at cloudflare.com
-# Enable Cloudflare Pages
+# 1. Cloudflare Pages Frontend Setup
 CLOUDFLARE_TOKEN="your_token_here"
 APP_NAME="coldplaymeetup"
 DOMAIN="${APP_NAME}.pages.dev"
 
-# 2. Oracle Cloud Setup
-# Register at oracle.com/cloud/free
-# Create VM instance (ARM-based)
-# Save SSH key pair
-SSH_KEY_PATH="~/.ssh/oracle_key"
+# 2. Render.com Backend Setup
+# Login to render.com
+# Create new Web Service
+# Connect GitHub repository
+# Environment: Docker
+# Free instance type: 512MB RAM, shared CPU
+RENDER_SERVICE_NAME="coldplaymeetup-api"
+RENDER_URL="${RENDER_SERVICE_NAME}.onrender.com"
 
-# 3. GitHub Repository
-# Create new repository
-# Generate GitHub token for CI/CD
+# 3. GitHub Repository Setup
 GITHUB_TOKEN="your_token_here"
 
-# 4. Environment Setup
-cp .env.example .env
-
-# Add to .env:
+# 4. Environment Variables
+# Add these in Render.com dashboard:
 FLASK_APP=app.backend
 FLASK_ENV=production
 SECRET_KEY=$(openssl rand -hex 32)
 DOMAIN_NAME=${DOMAIN}
 ADMIN_EMAIL=your@email.com
+DATABASE_URL="postgresql://postgres:postgres@localhost:5432/coldplaymeetup"
 
-# 5. Initial Server Setup
-ssh -i $SSH_KEY_PATH ubuntu@your_server_ip
-
-# Run these commands on server:
-sudo apt update && sudo apt upgrade -y
-sudo apt install -y docker.io docker-compose nginx
-
-# 6. Docker Setup
-sudo systemctl start docker
-sudo systemctl enable docker
-sudo usermod -aG docker $USER
-
-# 7. Application Deployment
+# 5. Local Development Setup
 git clone https://github.com/yourusername/coldplay-meetup.git
 cd coldplay-meetup
-docker-compose up -d
 
-# 8. Monitoring Setup
-docker-compose -f docker-compose.monitoring.yml up -d
+# Install dependencies
+python -m venv venv
+source venv/bin/activate  # On Windows: .\venv\Scripts\activate
+pip install -r requirements.txt
+
+# Install Node.js dependencies
+cd frontend
+npm install
+npm run dev
+
+# 6. Database Setup
+# Render.com provides free PostgreSQL database
+# Create database in Render dashboard
+# Copy the provided DATABASE_URL to environment variables
+
+# 7. Initial Database Migration
+flask db upgrade
+
+# 8. Start Development Server
+flask run

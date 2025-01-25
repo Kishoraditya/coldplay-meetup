@@ -1,0 +1,22 @@
+# Add this file to your project root
+services:
+  - name: coldplaymeetup-api
+    type: web
+    runtime: python
+    buildCommand: docker build -t coldplaymeetup-api .
+    startCommand: docker run coldplaymeetup-api
+    envVars:
+      - key: ENVIRONMENT
+        value: docker
+      - key: FLASK_APP
+        value: app.backend
+      - key: FLASK_ENV
+        value: production
+      - key: DATABASE_URL
+        fromDatabase:
+          name: coldplaymeetup-db
+          property: connectionString
+
+databases:
+  - name: coldplaymeetup-db
+    ipAllowList: []
