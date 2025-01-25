@@ -1,0 +1,16 @@
+# Add this new file to your project root
+name: ${APP_NAME}
+build:
+  env:
+    PYTHON_VERSION: 3.9
+routes:
+  - pattern: /api/*
+    script: api/index.py
+  - pattern: /*
+    static: dist
+
+build_config:
+  commands:
+    - pip install -r requirements.txt
+    - python setup.py build
+    - npm run build

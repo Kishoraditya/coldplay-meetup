@@ -1,0 +1,19 @@
+apiVersion: 1
+
+providers:
+  - name: 'Production Dashboards'
+    orgId: 1
+    folder: 'Production'
+    type: file
+    options:
+      path: /etc/grafana/provisioning/dashboards
+
+dashboards:
+  - name: 'Application Overview'
+    uid: app-overview
+    editable: false
+    panels:
+      - title: "User Activity"
+      - title: "Match Rate"
+      - title: "Error Rate"
+      - title: "System Resources"

@@ -1,0 +1,47 @@
+# 1. Cloudflare Setup
+# Create account at cloudflare.com
+# Enable Cloudflare Pages
+CLOUDFLARE_TOKEN="your_token_here"
+APP_NAME="coldplaymeetup"
+DOMAIN="${APP_NAME}.pages.dev"
+
+# 2. Oracle Cloud Setup
+# Register at oracle.com/cloud/free
+# Create VM instance (ARM-based)
+# Save SSH key pair
+SSH_KEY_PATH="~/.ssh/oracle_key"
+
+# 3. GitHub Repository
+# Create new repository
+# Generate GitHub token for CI/CD
+GITHUB_TOKEN="your_token_here"
+
+# 4. Environment Setup
+cp .env.example .env
+
+# Add to .env:
+FLASK_APP=app.backend
+FLASK_ENV=production
+SECRET_KEY=$(openssl rand -hex 32)
+DOMAIN_NAME=${DOMAIN}
+ADMIN_EMAIL=your@email.com
+
+# 5. Initial Server Setup
+ssh -i $SSH_KEY_PATH ubuntu@your_server_ip
+
+# Run these commands on server:
+sudo apt update && sudo apt upgrade -y
+sudo apt install -y docker.io docker-compose nginx
+
+# 6. Docker Setup
+sudo systemctl start docker
+sudo systemctl enable docker
+sudo usermod -aG docker $USER
+
+# 7. Application Deployment
+git clone https://github.com/yourusername/coldplay-meetup.git
+cd coldplay-meetup
+docker-compose up -d
+
+# 8. Monitoring Setup
+docker-compose -f docker-compose.monitoring.yml up -d

@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <div class="max-w-3xl mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
+        <div class="px-4 py-5 border-b border-gray-200 sm:px-6">
+            <h3 class="text-lg leading-6 font-medium text-gray-900">
+                Match Details
+            </h3>
+        </div>
+        <div class="px-4 py-5 sm:p-6">
+            <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                <div>
+                    <h4 class="text-xl font-semibold mb-4">{{ match.user.name }}</h4>
+                    <p class="text-gray-600">Section: {{ match.user.seat_section }}</p>
+                    <p class="text-gray-600">Date: {{ match.user.attendance_date }}</p>
+                    <div class="mt-4">
+                        <h5 class="font-medium">Favorite Songs:</h5>
+                        <ul class="list-disc list-inside">
+                            {% for song in match.user.favorite_songs %}
+                            <li>{{ song }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                <div class="border-t sm:border-t-0 sm:border-l border-gray-200 pt-4 sm:pt-0 sm:pl-6">
+                    <h4 class="text-lg font-medium mb-4">Chat</h4>
+                    <div class="h-64 overflow-y-auto bg-gray-50 rounded p-4 mb-4">
+                        {% for message in messages %}
+                        <div class="mb-2 {% if message.sender_id == current_user.id %}text-right{% endif %}">
+                            <span class="inline-block bg-blue-100 rounded px-3 py-1">
+                                {{ message.content }}
+                            </span>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <form action="/matches/{{ match.id }}/message" method="POST" class="flex">
+                        <input type="text" name="message" class="flex-1 rounded-l border-gray-300 focus:ring-indigo-500 focus:border-indigo-500" placeholder="Type a message...">
+                        <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded-r hover:bg-indigo-700">Send</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,79 @@
+.matches-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 2rem;
+    padding: 2rem;
+}
+
+.match-card {
+    background: rgba(255,255,255,0.08);
+    border-radius: 20px;
+    padding: 1.5rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.match-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+}
+
+.match-card.matched::before {
+    background: linear-gradient(90deg, #00ff00, #00cc00);
+}
+
+.badge {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 15px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-top: 1rem;
+}
+
+.badge.pending {
+    background: rgba(255, 217, 0, 0.2);
+    color: #ffd900;
+}
+
+.badge.matched {
+    background: rgba(0, 255, 0, 0.2);
+    color: #00ff00;
+}
+
+.reveal-countdown {
+    margin-top: 1rem;
+    font-size: 0.875rem;
+    color: var(--accent);
+}
+
+.contact-info {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: rgba(255,255,255,0.05);
+    border-radius: 10px;
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.social-links a {
+    color: var(--text);
+    font-size: 1.5rem;
+    transition: color 0.3s ease;
+}
+
+.social-links a:hover {
+    color: var(--accent);
+}

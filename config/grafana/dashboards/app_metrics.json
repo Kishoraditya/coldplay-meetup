@@ -1,0 +1,30 @@
+{
+    "dashboard": {
+      "title": "Coldplay Meetup Metrics",
+      "panels": [
+        {
+          "title": "Active Users",
+          "type": "graph",
+          "datasource": "Prometheus",
+          "targets": [
+            {
+              "expr": "active_users_total",
+              "legendFormat": "Users"
+            }
+          ]
+        },
+        {
+          "title": "Matches per Section",
+          "type": "bargauge",
+          "datasource": "Prometheus",
+          "targets": [
+            {
+              "expr": "matches_by_section",
+              "legendFormat": "{{section}}"
+            }
+          ]
+        }
+      ]
+    }
+  }
+  

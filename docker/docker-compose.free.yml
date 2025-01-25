@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    restart: always
+    volumes:
+      - ./data:/app/data
+      - ./static:/app/static
+    environment:
+      - FLASK_ENV=production
+      - DATABASE_URL=sqlite:///data/app.db
+      - REDIS_URL=redis://redis:6379/0
+
+  redis:
+    image: redis:alpine
+    restart: always
+    volumes:
+      - redis_data:/data
+
+volumes:
+  redis_data:

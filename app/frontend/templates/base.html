@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coldplay India Meetup 2025</title>
+    <link href="/static/css/output.css" rel="stylesheet">
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="/static/js/app.js"></script>
+</head>
+<body class="bg-gradient-to-r from-purple-500 to-pink-500 min-h-screen">
+    <nav class="bg-white/10 backdrop-blur-md">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex justify-between items-center">
+                <div class="text-white font-bold text-xl">Coldplay Meetup</div>
+                <div x-data="{ open: false }" class="relative">
+                    <button @click="open = !open" class="text-white">Menu</button>
+                    <div x-show="open" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg">
+                        <a href="/" class="block px-4 py-2 hover:bg-gray-100">Home</a>
+                        <a href="/profile" class="block px-4 py-2 hover:bg-gray-100">Profile</a>
+                        <a href="/matches" class="block px-4 py-2 hover:bg-gray-100">Matches</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <main class="container mx-auto px-4 py-8">
+        {% block content %}{% endblock %}
+    </main>
+    
+    <footer class="bg-white/10 backdrop-blur-md text-white text-center py-4">
+        <p>Not affiliated with Coldplay or concert organizers</p>
+        <p>A fan community project</p>
+    </footer>
+</body>
+</html>
