@@ -17,13 +17,4 @@ def create_app():
     jwt.init_app(app)
     CORS(app)
     limiter.init_app(app)
-    
-    from .auth import auth_bp
-    from .profiles import profiles_bp
-    from .matches import matches_bp
-    
-    app.register_blueprint(auth_bp)
-    app.register_blueprint(profiles_bp)
-    app.register_blueprint(matches_bp)
-    
-    return app
+
