@@ -1,13 +1,21 @@
-FROM python:3.11-slim
+FROM python:3.9-slim
 
 WORKDIR /app
+
+# Install dependencies
 COPY requirements.txt .
-RUN pip install -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
-COPY . .
+# Copy application code
+COPY app/backend ./backend
+COPY config ./config
 
-ENV FLASK_APP=app.backend
+# Set environment variables
+ENV FLASK_APP=backend.app
 ENV FLASK_ENV=production
 
-EXPOSE 8000
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "app.backend:app"]
+# Expose port
+EXPOSE 5000
+
+# Run with gunicorn
+CMD ["gunicorn", "--config", "config/gunicorn/gunicorn.conf.py", "backend.app:create_app()"]
