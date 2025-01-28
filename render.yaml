@@ -2,9 +2,9 @@
 services:
   - name: coldplaymeetup-api
     type: web
-    runtime: python
+    runtime: docker
     buildCommand: docker build -t coldplaymeetup-api .
-    startCommand: docker run coldplaymeetup-api
+    startCommand: docker run -p 8000:8000 coldplaymeetup-api
     envVars:
       - key: ENVIRONMENT
         value: docker
